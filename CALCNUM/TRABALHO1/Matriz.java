@@ -21,7 +21,7 @@ public class Matriz
 
     public Matriz gerarMatriz(Matriz matriz)
     {
-        Scanner sc = new Scanner(System.in);
+        //Scanner sc = new Scanner(System.in);
         for(int linha = 0; linha < matriz.linhas; linha = linha + 1)
         {
             for(int coluna = 0; coluna < matriz.colunas; coluna = coluna + 1)
@@ -34,7 +34,7 @@ public class Matriz
     }
 
     public static Matriz preencherTn(Matriz matriz, int lambda){
-        Scanner scan = new Scanner(System.in);
+        //Scanner scan = new Scanner(System.in);
         
         int n = matriz.linhas;
 
