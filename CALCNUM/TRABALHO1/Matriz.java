@@ -4,13 +4,13 @@ public class Matriz
 {
     public int linhas;
     public int colunas;
-    private int matriz[][];
+    private float matriz[][];
 
     public Matriz(int linhas, int colunas)
     {
         this.linhas = linhas;
         this.colunas= colunas;
-        this.matriz = new int[this.linhas][this.colunas];
+        this.matriz = new float[this.linhas][this.colunas];
     }
 
     private Matriz inserir(Matriz matriz, int valor)
@@ -46,14 +46,6 @@ public class Matriz
             
             matriz.matriz[i][i] = lambda;
             
-
-            /**
-             *
-             * se(i<n-1){
-                    matriz[i][i+1] = -1
-               }
-                    matriz[i+1][i] = -1
-          */ 
         }
         return matriz;
     }
@@ -93,13 +85,105 @@ public class Matriz
         }
     }
 
-    public int encontrarDeterminante(Matriz matriz)
+    public float encontrarDeterminante(Matriz matriz)
     {
+        
         return 0;
     }
 
     public int encontrarAutoValor(Matriz matriz)
     {
         return 0;
+    }
+    /***
+     * Troca de linhas -> eliminação de Gauss na matriz TGn (transformar a matriz TGn em uma matriz triangular superior)
+     * @param matriz
+     */
+    public static void trocaLinhas(Matriz matriz){
+        int tam = 100;
+        Matriz trocas = new Matriz(tam, tam);
+        float vetor1[] = new float[tam];
+        float vetor2[] = new float[tam];
+        float  receber_linha;
+        int n = matriz.linhas;
+        int k = 0;
+        float y = 1;
+        float determinante = 1;
+        
+
+        for(int i = 0; i < n/2; i++){
+            for(int j=0; j<2;j++){
+                trocas.matriz[i][j] = k;
+                k++;
+            }
+        }
+
+        int i = 0;
+        int j = 0;
+        int l = 0; 
+        int g = 0;
+        int h = 0;
+
+		while(i < n - 2){
+			for(j = 0; j < n; j++){
+				l=i;
+				vetor1[j] = matriz.matriz[l][j];
+				vetor2[j] = matriz.matriz[l+1][j];
+		
+			}
+			for(g = 0; g < n; g++){
+			    matriz.matriz[i][g] = vetor2[g];
+			    matriz.matriz[i+1][g] = vetor1[g];
+			}
+			
+			i=i+2;
+		}
+
+        i = 0;
+        j = 0;
+        l = 0; 
+        g = 0;
+
+        for(i=0; i<n; i++){
+			for(j=0; j<n; j++){
+				if(i==j){
+					for(k=i+1; k<n; k++){
+						while(matriz.matriz[k][j] != 0){
+						    receber_linha = -matriz.matriz[k][j]/matriz.matriz[i][j];
+						    h=0;
+                            for(l=j; l<n; l++){
+                                vetor1[h] = matriz.matriz[k][l]*receber_linha;
+                                
+                            }
+						}
+					}
+				}
+			}
+		}
+
+        //começar o escalonamento
+		for(i=0; i<n; i++){
+			for(j=i+1; j<n; j++){
+				
+				y = matriz.matriz[j][i]/matriz.matriz[i][i];
+				if(matriz.matriz[j][i]!=0){
+                    for(k=0; k<n; k++){
+                        matriz.matriz[j][k] = matriz.matriz[j][k] - y*matriz.matriz[i][k];
+                    }
+				}
+		    }
+		}
+
+
+		for(i=0; i<n; i++){
+			for(j=0; j<n; j++){	
+				if(i==j){
+				determinante=determinante*matriz.matriz[i][j];
+				}
+			}
+		}
+        
+        System.out.println(determinante);
+
     }
 }
