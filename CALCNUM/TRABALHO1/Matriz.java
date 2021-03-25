@@ -1,30 +1,29 @@
 import java.util.Scanner;
 
+
 public class Matriz 
 {
-    public int linhas;
-    public int colunas;
+    public int n;
     private float matriz[][];
 
     public Matriz(int linhas, int colunas)
     {
-        this.linhas = linhas;
-        this.colunas= colunas;
-        this.matriz = new float[this.linhas][this.colunas];
+        this.n = n;
+        this.matriz = new float[this.n][this.n];
     }
 
     private Matriz inserir(Matriz matriz, int valor)
     {
-        matriz.matriz[matriz.linhas][matriz.colunas] = valor;
+        matriz.matriz[matriz.n][matriz.n] = valor;
         return matriz;
     }
 
     public Matriz gerarMatriz(Matriz matriz)
     {
         //Scanner sc = new Scanner(System.in);
-        for(int linha = 0; linha < matriz.linhas; linha = linha + 1)
+        for(int linha = 0; linha < matriz.n; linha = linha + 1)
         {
-            for(int coluna = 0; coluna < matriz.colunas; coluna = coluna + 1)
+            for(int coluna = 0; coluna < matriz.n; coluna = coluna + 1)
             {
                 matriz.matriz[linha][coluna] = 0; //sc.nextInt();
             }
@@ -85,10 +84,48 @@ public class Matriz
         }
     }
 
-    public float encontrarDeterminante(Matriz matriz)
+    public Matriz eliminacaoDeGauss(Matriz matriz){
+
+        int n = matriz.n;
+        float m;
+        float temp;
+        boolean validator = true;
+
+        for(int j = 0; j < n - 1; j++){
+            int l = j;
+            while(matriz.matriz[l][j] == 0){
+                if(l < n - 1){
+                    l = l + 1;
+                }else{
+                    System.out.println("Erro -> Sistema singular");
+                    validator = false;
+                    break;
+                }
+                
+            }
+            if(validator){
+                
+                for(int k = j; k < n; k++){
+                    temp = matriz.matriz[j][k];
+                    matriz.matriz[j][k] = matriz.matriz[l][k];
+                    matriz.matriz[l][k] = temp;
+                }
+            }
+            for(int i = j + 1; i < n; i++){
+                m = -matriz.matriz[i][j]/matriz.matriz[j][j];
+                for(int k = j; k < n; k++){
+                    matriz.matriz[i][k] = matriz.matriz[i][k] + m*matriz.matriz[j][k];
+                }
+            }
+        }
+
+        return matriz;
+    }
+
+    public void encontrarDeterminante(Matriz matriz)
     {
 
-        int n = matriz.linhas;
+        int n = matriz.n;
         int sgn = 1;
         int count = 0;
         float determinante = 1;
@@ -128,9 +165,7 @@ public class Matriz
             determinante = determinante*matriz.matriz[i][i];
         }
         determinante = determinante*sgn;
-
-
-        return determinante;
+        System.out.println(determinante);
     }
 
     public int encontrarAutoValor(Matriz matriz)
@@ -160,7 +195,7 @@ public class Matriz
         float vetor1[] = new float[tam];
         float vetor2[] = new float[tam];
         float  receber_linha;
-        int n = matriz.linhas;
+        int n = matriz.n;
         int k = 0;
         float y = 1;
         float determinante = 1;
@@ -228,7 +263,6 @@ public class Matriz
 				}
 		    }
 		}
-
 
 		for(i=0; i<n; i++){
 			for(j=0; j<n; j++){	

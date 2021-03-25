@@ -1,6 +1,5 @@
 import java.util.Scanner;
 
-
 public class Main
 {
     public static void main(String args[])
@@ -11,7 +10,7 @@ public class Main
         int colunas = 0;
         
         int n = 7;
-        int x = 4;
+        int x = 0;
         
         //System.out.println("Digite o número de linhas da matriz: ");
         //linhas = sc.nextInt();
@@ -26,7 +25,11 @@ public class Main
         matriz.gerarMatriz(matriz);
         matriz.preencherTn(matriz, x);
         matriz.mostrarMatriz(matriz);
-        matriz.trocaLinhas(matriz);
+
+        //Matriz matriz_escalonada = matriz.eliminacaoDeGauss(matriz);
+        //matriz_escalonada.mostrarMatriz(matriz_escalonada);
+        //matriz.trocaLinhas(matriz);
+        //matriz.encontrarDeterminante(matriz);
         
 
         
