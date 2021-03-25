@@ -26,10 +26,35 @@ public class Matriz
         {
             for(int coluna = 0; coluna < matriz.colunas; coluna = coluna + 1)
             {
-                matriz.matriz[linha][coluna] = sc.nextInt();
+                matriz.matriz[linha][coluna] = 0; //sc.nextInt();
             }
         }
 
+        return matriz;
+    }
+
+    public static Matriz preencherTn(Matriz matriz, int lambda){
+        Scanner scan = new Scanner(System.in);
+        
+        int n = matriz.linhas;
+
+        for(int i = 0; i < n; i++){
+            if(i < n-1){
+                matriz.matriz[i][i+1] = -1;
+                matriz.matriz[i+1][i] = -1;
+            }
+            
+            matriz.matriz[i][i] = lambda;
+            
+
+            /**
+             *
+             * se(i<n-1){
+                    matriz[i][i+1] = -1
+               }
+                    matriz[i+1][i] = -1
+          */ 
+        }
         return matriz;
     }
 

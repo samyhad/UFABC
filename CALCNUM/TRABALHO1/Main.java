@@ -8,13 +8,16 @@ public class Main
         Scanner sc = new Scanner(System.in);
 
         int linhas = 0;
-        int colunas = linhas;        
+        int colunas = linhas;
+        
+        int n = 7;
+        int x = 0;
         
         System.out.println("Digite o número de linhas da matriz: ");
-        linhas = 11; //sc.nextInt();
+        linhas = n; //sc.nextInt();
 
         System.out.println("Digite o número de colunas da matriz: ");
-        colunas = 11; //sc.nextInt();
+        colunas = n; //sc.nextInt();
     
         
         Matriz matriz = new Matriz(linhas, colunas);
@@ -22,6 +25,9 @@ public class Main
 
         matriz.gerarMatriz(matriz);
         matriz.mostrarMatriz(matriz);
+        matriz.preencherTn(matriz, x);
+        matriz.mostrarMatriz(matriz);
+
         
     }
 }
