@@ -87,14 +87,69 @@ public class Matriz
 
     public float encontrarDeterminante(Matriz matriz)
     {
-        
-        return 0;
+
+        int n = matriz.linhas;
+        int sgn = 1;
+        int count = 0;
+        float determinante = 1;
+        boolean validator = false;
+
+        for(int j = 0; j < n-1; j++){
+            count = j;
+
+            while(matriz.matriz[count][j] == 0){
+                count = count +1;
+                sgn = -sgn;
+            }
+            if(count > n){
+                System.out.println("Erro -> Sistema singular");
+            
+            }else{
+                float[] temp = matriz.matriz[j];
+                matriz.matriz[j] = matriz.matriz[count];
+                matriz.matriz[count] = temp;
+            }
+
+            float m;
+
+            if(matriz.matriz[j][j] != 0){
+                for(int i = j+1; i < n; i++){
+
+                    m = - matriz.matriz[i][j]/matriz.matriz[j][j];
+            
+                    for(int k = j; k < n; k ++){
+                        matriz.matriz[i][k] = matriz.matriz[i][k] + m*matriz.matriz[j][k];
+                    }      
+                }
+            }
+        }
+
+        for(int i = 0; i < n; i++){
+            determinante = determinante*matriz.matriz[i][i];
+        }
+        determinante = determinante*sgn;
+
+
+        return determinante;
     }
 
     public int encontrarAutoValor(Matriz matriz)
     {
         return 0;
     }
+
+    public static boolean ehAutoVetor(int[]x, int tamanho){
+
+        boolean validador = false;
+        for(int i = 0; i < tamanho; i++){
+          if(x[i] != 0)
+          {
+            validador = true;
+          }
+        }
+        return validador;
+    }
+
     /***
      * Troca de linhas -> eliminação de Gauss na matriz TGn (transformar a matriz TGn em uma matriz triangular superior)
      * @param matriz
