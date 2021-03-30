@@ -1,17 +1,20 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Main
 {
     public static void main(String args[])
     {
-        Scanner sc = new Scanner(System.in);
-
-        int lambda = 0;
+        int x = 4;
         int n = 6;
+        double det = 0;
         
-        System.out.println("Determinante:" + fTGn(lambda, n));
-        
+        for(int lambda = 0; lambda <= x; lambda++){
+
+            det = fTGn(lambda, n);
+            if(det != 0){
+                System.out.println("Determinante:" + det);
+            }
+        }
     }
 
     public static Double[][] TGn(int lambda, int n){
@@ -47,28 +50,31 @@ public class Main
         int sgn = 1;
         int l = 0;
         int[] t = new int[2];
+        boolean erro = false;
 
         ArrayList<int[]> changeLine = new ArrayList<int[]>();
         
-        for (int j = 0; j < n-1; j++){
+        for (int j = 0; j < n; j++){
             troca = true;
             l = j;
             while(l < n){
                 if(A[l][j] == 0 && l != n - 1){
                     l = l + 1;
                     sgn = -sgn;
-                    
+
                 }else if(A[l][j] == 0 && l == n - 1){
                     l = l + 1;
                     sgn = -sgn;
                     troca = false;
-                    
+
                 }else if(A[l][j] != 0){
                     break;
                 }
             }
             if(troca == false && A[j][j] == 0){
                 System.out.println("Erro: sistema singular");
+                erro = true;
+                break;
             }
             else if(troca == true && A[j][j] == 0){
                 for(int k = j; k < n; k++){
@@ -87,22 +93,30 @@ public class Main
                 }
             }
         }
-        for(int i = 0; i < n; i++){
+        for(int i = 0; i < n && erro == false; i++){
             determinante = determinante*A[i][i];
         }        
-            
-        determinante = determinante*sgn;
+        
+        if(erro == false){
 
-        System.out.println("V: ");
-        printArray(A);
-        System.out.println("V': ");
-        printArray(A_original);
+            determinante = determinante*sgn;
 
-        if(troca == false){
-            System.out.println("trocaLinhas: Não houveram trocas");
-        }else{
-            System.out.println("trocaLinhas:");
-            changeLine.forEach((d) -> printArray(d));
+            if(lambda == 0){
+                System.out.println("V: ");
+                printArray(A_original);
+                System.out.println("V': ");
+                printArray(A);
+
+                if(changeLine.size() == 0){
+                    System.out.println("trocaLinhas: Não houveram trocas");
+                }else{
+                    System.out.println("trocaLinhas:");
+                    changeLine.forEach((d) -> printArray(d));
+                }
+            }
+        }
+        else{
+            determinante = 0;
         }
 
         return determinante;

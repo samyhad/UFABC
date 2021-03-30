@@ -82,7 +82,7 @@ public class Matriz
                     A[l][k] = temp;
                 }
                 t[0] = j + 1;
-                t[1] = l + 1;
+                    t[1] = l + 1;
                 changeLine.add(t);
             }
             for (int i = j+1; i < n; i++){
