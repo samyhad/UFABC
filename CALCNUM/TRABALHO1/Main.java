@@ -122,6 +122,28 @@ public class Main
         return determinante;
     }
 
+    public static double fLinha(int lambda, int n){
+    
+        double derivada = 1;
+        
+        if (lambda == 2){
+            
+            derivada = (math.pow((n + 1),5) - math.pow((n+1),3))/3;
+            
+        }else if(lambda == -2){
+        
+            derivada = math.pow(-1, n+1)*((pow((n + 1),5) - math.pow((n+1),3))/3);
+        
+        }else{
+            z = lambda/2;
+            derivada = ((n + 1)*math.cos((n+1)*math.acos(z)) - z*(math.sin((n+1)*math.acos(z)))/(math.sin(math.acos(z))))/(2*(math.pow(z,2) - 1));
+        }
+
+        return derivada;
+    }
+
+    
+
     public static void printArray(Double A[][])
     {
         int n = A.length;
