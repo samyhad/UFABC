@@ -17,7 +17,7 @@ public class Main
         }
     }
 
-    public static Double[][] TGn(int lambda, int n){
+    public static Double[][] TGn(double lambda, int n){
 
         Double A[][] = new Double[n][n];
 
@@ -39,7 +39,7 @@ public class Main
         return A;
     }
 
-    public static double fTGn(int lambda, int n){
+    public static double fTGn(double lambda, int n){
 
         boolean troca = true;
         double m = 0;
@@ -122,27 +122,44 @@ public class Main
         return determinante;
     }
 
-    public static double fLinha(int lambda, int n){
+    public static double fLinha(double lambda, int n){
     
         double derivada = 1;
+        double z;
         
         if (lambda == 2){
             
-            derivada = (math.pow((n + 1),5) - math.pow((n+1),3))/3;
+            derivada = (Math.pow((n + 1),5) - Math.pow((n+1),3))/3;
             
         }else if(lambda == -2){
         
-            derivada = math.pow(-1, n+1)*((pow((n + 1),5) - math.pow((n+1),3))/3);
+            derivada = Math.pow(-1, n+1)*((Math.pow((n + 1),5) - Math.pow((n+1),3))/3);
         
         }else{
             z = lambda/2;
-            derivada = ((n + 1)*math.cos((n+1)*math.acos(z)) - z*(math.sin((n+1)*math.acos(z)))/(math.sin(math.acos(z))))/(2*(math.pow(z,2) - 1));
+            derivada = ((n + 1)*Math.cos((n+1)*Math.acos(z)) - z*(Math.sin((n+1)*Math.acos(z)))/(math.sin(math.acos(z))))/(2*(math.pow(z,2) - 1));
         }
 
         return derivada;
     }
 
-    
+    public static double newton(double a, double b, double prec, int n_max, double x0, int n){
+
+        double alpha = x0;
+        int i = 0;
+        
+        while(fTGn(alpha - prec, n)*fTGn(alpha + prec, n) > 0 && i <= n_max){
+            
+            i = i + 1;
+            
+            if(a >= alpha && alpha <= b){
+                alpha = alpha - fTGn(alpha, n)/fLinha(alpha, n);
+            }
+
+        }
+        
+        return alpha;
+    }
 
     public static void printArray(Double A[][])
     {
