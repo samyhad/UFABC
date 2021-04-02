@@ -4,24 +4,25 @@ public class Main
 {
     public static void main(String args[])
     {
-        System.out.println("~~~~~~> EXERCÍCIO 2");
-        exerc2();
-        System.out.println("~~~~~~> EXERCÍCIO 6");
-        exerc6();
+        System.out.println("~~~~~~> EXERCÍCIO 1");
+        exerc1();
+        //System.out.println("~~~~~~> EXERCÍCIO 6");
+        //exerc6();
     }
 
-    public static void exerc2(){
+    public static void exerc1(){
 
         int x = 4;
-        int n = 6;
+        int n = 7;
         double det = 0;
+        boolean debug  = true;
         
         for(int lambda = 0; lambda <= x; lambda++){
 
-            det = fTGn(lambda, n);
-            if(det != 0){
-                System.out.println("Determinante:" + det);
-            }
+            det = fTGn(lambda, n, debug);
+            //if(det == 0){
+                //System.out.println("Determinante:" + det);
+            //}
         }
 
     }
@@ -83,7 +84,7 @@ public class Main
         return A;
     }
 
-    public static double fTGn(double lambda, int n){
+    public static double fTGn(double lambda, int n, boolean debug){
 
         boolean troca = true;
         double m = 0;
@@ -116,8 +117,8 @@ public class Main
                 }
             }
             if(troca == false && A[j][j] == 0){
-                System.out.println("Erro: sistema singular");
-                erro = true;
+                System.err.println("Erro: sistema singular");
+                //erro = true;
                 break;
             }
             else if(troca == true && A[j][j] == 0){
@@ -145,7 +146,7 @@ public class Main
 
             determinante = determinante*sgn;
 
-            if(lambda == 0){
+            if(lambda == 0 && debug){
                 System.out.println("V: ");
                 printArray(A_original);
                 System.out.println("V': ");
@@ -192,12 +193,12 @@ public class Main
         double alpha = x0;
         int i = 0;
         
-        while(fTGn(alpha - prec, n)*fTGn(alpha + prec, n) > 0 && i <= n_max){
+        while(fTGn(alpha - prec, n, false)*fTGn(alpha + prec, n, false) > 0 && i <= n_max){
             
             i = i + 1;
             
             if(a >= alpha && alpha <= b){
-                alpha = alpha - fTGn(alpha, n)/fLinha(alpha, n);
+                alpha = alpha - fTGn(alpha, n, false)/fLinha(alpha, n);
             }
 
         }
