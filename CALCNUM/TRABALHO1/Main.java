@@ -4,6 +4,14 @@ public class Main
 {
     public static void main(String args[])
     {
+        System.out.println("~~~~~~> EXERCÍCIO 2");
+        exerc2();
+        System.out.println("~~~~~~> EXERCÍCIO 6");
+        exerc6();
+    }
+
+    public static void exerc2(){
+
         int x = 4;
         int n = 6;
         double det = 0;
@@ -15,6 +23,42 @@ public class Main
                 System.out.println("Determinante:" + det);
             }
         }
+
+    }
+
+    public static void exerc6(){
+
+        double [] intervalos = {2, 1.8, 1.5, 1.4, 1, 0.5, 0, -0.6, -1, -1.5, -1.8, -2};
+        int tamanho_intervalo = intervalos.length;
+        double precisao = Math.pow(10,-12);
+        double menor = 0, maior = 0, x0 = 0;
+        double raiz_exata = 0;
+        double raiz_aprox = 0;
+        int n_max = 50;
+        int n = 11;
+        int k = 1;
+        
+        for(int j = 0; j < tamanho_intervalo; j++){
+            
+            if(j + 1 <= tamanho_intervalo - 1){
+
+                menor = intervalos[j];
+                maior = intervalos[j + 1];
+                x0 = (maior+menor)/2;
+                
+                raiz_exata = 2*Math.cos(k*Math.PI/12);
+                raiz_aprox = newton(menor,maior, precisao, n_max, x0, n);
+
+                System.out.println("~> intervalo: [" + menor +","+ maior+"]");
+                System.out.println("~~~> raiz exata: " + raiz_exata);
+                System.out.println("~~~> raiz aprox: " + raiz_aprox);
+                System.out.println("~~~> erro: " + Math.abs(raiz_exata - raiz_aprox));
+                
+            }
+            k = k + 1;
+        
+        }
+    
     }
 
     public static Double[][] TGn(double lambda, int n){
