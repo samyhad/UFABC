@@ -20,9 +20,8 @@ public class Main
         for(int lambda = 0; lambda <= x; lambda++){
 
             det = fTGn(lambda, n, debug);
-            //if(det == 0){
-                //System.out.println("Determinante:" + det);
-            //}
+            System.out.println("fT"+n+"("+ lambda +") vale " + det);
+            
         }
 
     }
@@ -118,7 +117,7 @@ public class Main
             }
             if(troca == false && A[j][j] == 0){
                 System.err.println("Erro: sistema singular");
-                //erro = true;
+                erro = true;
                 break;
             }
             else if(troca == true && A[j][j] == 0){
@@ -138,32 +137,30 @@ public class Main
                 }
             }
         }
-        for(int i = 0; i < n && erro == false; i++){
+        for(int i = 0; i < n; i++){
             determinante = determinante*A[i][i];
         }        
         
         if(erro == false){
-
             determinante = determinante*sgn;
-
-            if(lambda == 0 && debug){
-                System.out.println("V: ");
-                printArray(A_original);
-                System.out.println("V': ");
-                printArray(A);
-
-                if(changeLine.size() == 0){
-                    System.out.println("trocaLinhas: Não houveram trocas");
-                }else{
-                    System.out.println("trocaLinhas:");
-                    changeLine.forEach((d) -> printArray(d));
-                }
-            }
         }
         else{
             determinante = 0;
         }
 
+        if(lambda == 0 && debug){
+            System.out.println("V: ");
+            printArray(A_original);
+            System.out.println("V': ");
+            printArray(A);
+
+            if(changeLine.size() == 0){
+                System.out.println("trocaLinhas: Não houveram trocas");
+            }else{
+                System.out.println("trocaLinhas:");
+                changeLine.forEach((d) -> printArray(d));
+            }
+        }
         return determinante;
     }
 
