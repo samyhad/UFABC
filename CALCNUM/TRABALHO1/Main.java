@@ -8,9 +8,11 @@ public class Main
         //exerc1();
         //System.out.println("~~~~~~> EXERCÍCIO 3");
         //exerc3();
-        System.out.println("~~~~~~> EXERCÍCIO 6");
-        exerc6();
-        
+        System.out.println("~~~~~~> EXERCÍCIO 5");
+        exerc5();
+        //System.out.println("~~~~~~> EXERCÍCIO 6");
+        //exerc6();
+
     }
 
     public static void exerc1(){
@@ -66,6 +68,54 @@ public class Main
             }
         }
 
+    }
+
+    public static void exerc5(){
+        
+        // intevalos onde podemos encontrar as n raizes. Esses dados foram retirados do exerc. 2 -> para n = 11
+        Double[][] intervalos = {
+            {-2.0, -1.8787879},
+            {-1.7575758, -1.6363636},
+            {-1.5151515, -1.3939394},
+            {-1.030303, -0.9090909},
+            {-0.5454545, -0.42424238},
+            {-0.060606003, 0.060606003},
+            {0.4242425, 0.5454545},
+            {0.909091, 1.030303},
+            {1.3939395, 1.5151515},
+            {1.6363637, 1.757576},
+            {1.878788, 2.0}
+        };
+
+        int tamanho_intervalo = intervalos.length; 
+        double precisao = Math.pow(10,-12); // precisao dos metodos
+        double menor = 0, maior = 0, x0 = 0; 
+        double raiz_aprox_newton = 0;
+        double raiz_aprox_bissec = 0;
+        int n_max = 50; // numero maximo de interacoes para os dois metodos
+        int n = 11; // tamanho da matriz
+        
+        for(int j = 0; j < tamanho_intervalo; j++){
+            
+            if(j <= tamanho_intervalo - 1){
+
+                menor = intervalos[j][0]; // comeco do intervalo
+                maior = intervalos[j][1]; // fim do intervalo
+                x0 = (maior+menor)/2; // aproximação para x0, usado no método de Newton
+                
+                // calculo do metodo de Newton para o nosso intervalo atual
+                raiz_aprox_newton = newton(menor,maior, precisao, n_max, x0, n);
+                // calculo do metodo de bisseccao para o nosso intervalo atual
+                raiz_aprox_bissec = bisseccao(menor,maior,n_max,precisao, n);
+
+                // imprimindo os resultados
+                System.out.println(">>>> intervalo: [" + menor +", "+ maior+"]");
+                System.out.println("---> raiz aprox. (newton): " 
+                + raiz_aprox_newton);
+                System.out.println("---> raiz aprox. (bissec): " 
+                + raiz_aprox_bissec);        
+            }
+        }
     }
 
     public static void exerc6(){
