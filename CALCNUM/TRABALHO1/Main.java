@@ -4,8 +4,10 @@ public class Main
 {
     public static void main(String args[])
     {
-        System.out.println("~~~~~~> EXERCÍCIO 1");
-        exerc1();
+        //System.out.println("~~~~~~> EXERCÍCIO 1");
+        //exerc1();
+        //System.out.println("~~~~~~> EXERCÍCIO 3");
+        //exerc3();
         //System.out.println("~~~~~~> EXERCÍCIO 6");
         //exerc6();
     }
@@ -26,36 +28,91 @@ public class Main
 
     }
 
+    public static void exerc3(){
+        Double intervalos[][] = {
+            {-2.0, -1.8787879},
+            {-1.7575758, -1.6363636},
+            {-1.5151515, -1.3939394},
+            {-1.030303, -0.9090909},
+            {-0.5454545, -0.42424238},
+            {-0.060606003, 0.060606003},
+            {0.4242425, 0.5454545},
+            {0.909091, 1.030303},
+            {1.3939395, 1.5151515},
+            {1.6363637, 1.757576},
+            {1.878788, 2.0}
+        };
+        int tamanho_intervalo = intervalos.length;
+        double precisao = Math.pow(10,-12);
+        double raiz_aprox_bissec = 0;
+        double menor, maior = 0;
+        int n_max = 50;
+        int n = 11;
+        
+        for(int j = 0; j < tamanho_intervalo; j++){
+            
+            if(j <= tamanho_intervalo - 1){
+
+                menor = intervalos[j][0];
+                maior = intervalos[j][1];
+                
+                raiz_aprox_bissec = bisseccao(menor,maior,n_max,precisao, n);
+                
+                System.out.println("~> intervalo: [" + menor +","+ maior+"]");
+                System.out.println("~~~> raiz aprox (bissec): " + raiz_aprox_bissec);
+                System.out.println("");
+                
+            }
+        }
+
+    }
+
     public static void exerc6(){
 
-        double [] intervalos = {2, 1.8, 1.5, 1.4, 1, 0.5, 0, -0.6, -1, -1.5, -1.8, -2};
+        Double intervalos[][] = {
+            {-2.0, -1.8787879},
+            {-1.7575758, -1.6363636},
+            {-1.5151515, -1.3939394},
+            {-1.030303, -0.9090909},
+            {-0.5454545, -0.42424238},
+            {-0.060606003, 0.060606003},
+            {0.4242425, 0.5454545},
+            {0.909091, 1.030303},
+            {1.3939395, 1.5151515},
+            {1.6363637, 1.757576},
+            {1.878788, 2.0}
+        };
         int tamanho_intervalo = intervalos.length;
         double precisao = Math.pow(10,-12);
         double menor = 0, maior = 0, x0 = 0;
         double raiz_exata = 0;
-        double raiz_aprox = 0;
+        double raiz_aprox_newton = 0;
+        double raiz_aprox_bissec = 0;
         int n_max = 50;
         int n = 11;
-        int k = 1;
+        int k = 11;
         
         for(int j = 0; j < tamanho_intervalo; j++){
             
-            if(j + 1 <= tamanho_intervalo - 1){
+            if(j <= tamanho_intervalo - 1){
 
-                menor = intervalos[j];
-                maior = intervalos[j + 1];
+                menor = intervalos[j][0];
+                maior = intervalos[j][1];
                 x0 = (maior+menor)/2;
                 
                 raiz_exata = 2*Math.cos(k*Math.PI/12);
-                raiz_aprox = newton(menor,maior, precisao, n_max, x0, n);
+                raiz_aprox_newton = newton(menor,maior, precisao, n_max, x0, n);
+                raiz_aprox_bissec = bisseccao(menor,maior,n_max,precisao, n);
 
                 System.out.println("~> intervalo: [" + menor +","+ maior+"]");
                 System.out.println("~~~> raiz exata: " + raiz_exata);
-                System.out.println("~~~> raiz aprox: " + raiz_aprox);
-                System.out.println("~~~> erro: " + Math.abs(raiz_exata - raiz_aprox));
+                System.out.println("~~~> raiz aprox. (newton): " + raiz_aprox_newton);
+                System.out.println("~~~> raiz aprox. (bissec): " + raiz_aprox_bissec);
+                System.out.println("~~~> erro (newton): " + Math.abs(raiz_exata - raiz_aprox_newton));
+                System.out.println("~~~> erro (bissec): " + Math.abs(raiz_exata - raiz_aprox_bissec));
                 
             }
-            k = k + 1;
+            k = k - 1;
         
         }
     
@@ -116,7 +173,7 @@ public class Main
                 }
             }
             if(troca == false && A[j][j] == 0){
-                System.err.println("Erro: sistema singular");
+                // System.err.println("Erro: sistema singular");
                 erro = true;
                 break;
             }
@@ -200,6 +257,29 @@ public class Main
 
         }
         
+        return alpha;
+    }
+
+    public static double  bisseccao(double m, double M, int n_max, double prec, int n){
+    
+        double alpha = 0.5*(m+M); // x que será testado
+        int count = 0; // número de interações
+        boolean debug = false;
+        
+        while((fTGn(alpha-prec, n, debug)*fTGn(alpha+prec, n, debug)) > 0 && count < n_max){
+            
+            count = count + 1;
+            alpha = 0.5*(m+M);
+            
+            // verifica se a raíz está no intervalo [m, alpha]
+            if(fTGn(alpha, n, debug)*fTGn(m, n, debug) < 0 || fTGn(alpha, n, debug)*fTGn(m, n, debug) == 0 ){
+                M = alpha;
+            }
+            // verifica se a raíz está no intervalo [alpha, M]
+            if(fTGn(alpha, n, debug)*fTGn(m, n, debug) > 0){
+                m = alpha;
+            }
+        }
         return alpha;
     }
 
