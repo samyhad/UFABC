@@ -10,6 +10,7 @@ public class Main
         //exerc3();
         System.out.println("~~~~~~> EXERCÍCIO 6");
         exerc6();
+        
     }
 
     public static void exerc1(){
@@ -106,10 +107,14 @@ public class Main
 
                 System.out.println(">>>> intervalo: [" + menor +", "+ maior+"]");
                 System.out.println("---> raiz exata: " + raiz_exata);
-                System.out.println("---> raiz aprox. (newton): " + raiz_aprox_newton);
-                System.out.println("---> raiz aprox. (bissec): " + raiz_aprox_bissec);
-                System.out.println("---> erro (newton): " + Math.abs(raiz_exata - raiz_aprox_newton));
-                System.out.println("---> erro (bissec): " + Math.abs(raiz_exata - raiz_aprox_bissec));
+                System.out.println("---> raiz aprox. (newton): " 
+                + raiz_aprox_newton);
+                System.out.println("---> raiz aprox. (bissec): " 
+                + raiz_aprox_bissec);
+                System.out.println("---> erro (newton): " 
+                + Math.abs(raiz_exata - raiz_aprox_newton));
+                System.out.println("---> erro (bissec): " 
+                + Math.abs(raiz_exata - raiz_aprox_bissec));
                 System.out.println("");
                 
             }
