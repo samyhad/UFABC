@@ -8,8 +8,8 @@ public class Main
         //exerc1();
         //System.out.println("~~~~~~> EXERCÍCIO 3");
         //exerc3();
-        //System.out.println("~~~~~~> EXERCÍCIO 6");
-        //exerc6();
+        System.out.println("~~~~~~> EXERCÍCIO 6");
+        exerc6();
     }
 
     public static void exerc1(){
@@ -69,7 +69,7 @@ public class Main
 
     public static void exerc6(){
 
-        Double intervalos[][] = {
+        Double[][] intervalos = {
             {-2.0, -1.8787879},
             {-1.7575758, -1.6363636},
             {-1.5151515, -1.3939394},
@@ -104,12 +104,14 @@ public class Main
                 raiz_aprox_newton = newton(menor,maior, precisao, n_max, x0, n);
                 raiz_aprox_bissec = bisseccao(menor,maior,n_max,precisao, n);
 
-                System.out.println("~> intervalo: [" + menor +","+ maior+"]");
-                System.out.println("~~~> raiz exata: " + raiz_exata);
-                System.out.println("~~~> raiz aprox. (newton): " + raiz_aprox_newton);
-                System.out.println("~~~> raiz aprox. (bissec): " + raiz_aprox_bissec);
-                System.out.println("~~~> erro (newton): " + Math.abs(raiz_exata - raiz_aprox_newton));
-                System.out.println("~~~> erro (bissec): " + Math.abs(raiz_exata - raiz_aprox_bissec));
+                System.out.println(">>>> intervalo: [" + menor +","+ maior+"]");
+                System.out.println("---> raiz exata: " + raiz_exata);
+                System.out.println("---> raiz aprox. (inicial): " + x0);
+                System.out.println("---> raiz aprox. (newton): " + raiz_aprox_newton);
+                System.out.println("---> raiz aprox. (bissec): " + raiz_aprox_bissec);
+                System.out.println("---> erro (newton): " + Math.abs(raiz_exata - raiz_aprox_newton));
+                System.out.println("---> erro (bissec): " + Math.abs(raiz_exata - raiz_aprox_bissec));
+                System.out.println("");
                 
             }
             k = k - 1;
@@ -236,7 +238,7 @@ public class Main
         
         }else{
             z = lambda/2;
-            derivada = ((n + 1)*Math.cos((n+1)*Math.acos(z)) - z*(Math.sin((n+1)*Math.acos(z)))/(math.sin(math.acos(z))))/(2*(math.pow(z,2) - 1));
+            derivada = ((n + 1)*Math.cos((n+1)*Math.acos(z)) - z*(Math.sin((n+1)*Math.acos(z)))/(Math.sin(Math.acos(z))))/(2*(Math.pow(z,2) - 1));
         }
 
         return derivada;
@@ -247,20 +249,20 @@ public class Main
         double alpha = x0;
         int i = 0;
         
-        while(fTGn(alpha - prec, n, false)*fTGn(alpha + prec, n, false) > 0 && i <= n_max){
+        while(
+                fTGn(alpha - prec, n, false)*fTGn(alpha + prec, n, false) > 0 && 
+                i <= n_max
+            ){
             
             i = i + 1;
-            
-            if(a >= alpha && alpha <= b){
-                alpha = alpha - fTGn(alpha, n, false)/fLinha(alpha, n);
-            }
+            alpha = alpha - (fTGn(alpha, n, false)/fLinha(alpha, n));
 
         }
         
         return alpha;
     }
 
-    public static double  bisseccao(double m, double M, int n_max, double prec, int n){
+    public static double bisseccao(double m, double M, int n_max, double prec, int n){
     
         double alpha = 0.5*(m+M); // x que será testado
         int count = 0; // número de interações
