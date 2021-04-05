@@ -104,9 +104,8 @@ public class Main
                 raiz_aprox_newton = newton(menor,maior, precisao, n_max, x0, n);
                 raiz_aprox_bissec = bisseccao(menor,maior,n_max,precisao, n);
 
-                System.out.println(">>>> intervalo: [" + menor +","+ maior+"]");
+                System.out.println(">>>> intervalo: [" + menor +", "+ maior+"]");
                 System.out.println("---> raiz exata: " + raiz_exata);
-                System.out.println("---> raiz aprox. (inicial): " + x0);
                 System.out.println("---> raiz aprox. (newton): " + raiz_aprox_newton);
                 System.out.println("---> raiz aprox. (bissec): " + raiz_aprox_bissec);
                 System.out.println("---> erro (newton): " + Math.abs(raiz_exata - raiz_aprox_newton));
@@ -255,7 +254,9 @@ public class Main
             ){
             
             i = i + 1;
-            alpha = alpha - (fTGn(alpha, n, false)/fLinha(alpha, n));
+            if(a <= alpha && b >= alpha){
+                alpha = alpha - (fTGn(alpha, n, false)/fLinha(alpha, n));
+            }
 
         }
         
