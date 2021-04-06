@@ -8,10 +8,10 @@ public class Main
         //exerc1();
         //System.out.println("~~~~~~> EXERCÍCIO 3");
         //exerc3();
-        System.out.println("~~~~~~> EXERCÍCIO 5");
-        exerc5();
-        //System.out.println("~~~~~~> EXERCÍCIO 6");
-        //exerc6();
+        //System.out.println("~~~~~~> EXERCÍCIO 5");
+        //exerc5();
+        System.out.println("~~~~~~> EXERCÍCIO 6");
+        exerc6();
 
     }
 
@@ -138,7 +138,7 @@ public class Main
         double menor = 0, maior = 0, x0 = 0;
         double raiz_exata = 0;
         double raiz_aprox_newton = 0;
-        double raiz_aprox_bissec = 0;
+        //double raiz_aprox_bissec = 0;
         int n_max = 50;
         int n = 11;
         int k = 11;
@@ -153,18 +153,18 @@ public class Main
                 
                 raiz_exata = 2*Math.cos(k*Math.PI/12);
                 raiz_aprox_newton = newton(menor,maior, precisao, n_max, x0, n);
-                raiz_aprox_bissec = bisseccao(menor,maior,n_max,precisao, n);
+                //raiz_aprox_bissec = bisseccao(menor,maior,n_max,precisao, n);
 
                 System.out.println(">>>> intervalo: [" + menor +", "+ maior+"]");
                 System.out.println("---> raiz exata: " + raiz_exata);
                 System.out.println("---> raiz aprox. (newton): " 
                 + raiz_aprox_newton);
-                System.out.println("---> raiz aprox. (bissec): " 
-                + raiz_aprox_bissec);
+                //System.out.println("---> raiz aprox. (bissec): " 
+                //+ raiz_aprox_bissec);
                 System.out.println("---> erro (newton): " 
                 + Math.abs(raiz_exata - raiz_aprox_newton));
-                System.out.println("---> erro (bissec): " 
-                + Math.abs(raiz_exata - raiz_aprox_bissec));
+                //System.out.println("---> erro (bissec): " 
+                //+ Math.abs(raiz_exata - raiz_aprox_bissec));
                 System.out.println("");
                 
             }
