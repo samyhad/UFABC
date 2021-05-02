@@ -8,8 +8,8 @@ public class Main
         ex1();
         System.out.println("Exercício 2");
         ex2();
-        System.out.println("Exercício _");
-        ex__();
+        System.out.println("Exercício 5");
+        ex4();
     }
 
     public static void ex1()
@@ -44,7 +44,7 @@ public class Main
         }
     }
 
-    public static void ex__(){
+    public static void ex4(){
         double a = 0;
         double b = 1;
         int m = 100000;
