@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 public class Main
 {
@@ -8,8 +10,10 @@ public class Main
         ex1();
         System.out.println("Exercício 2");
         ex2();
-        System.out.println("Exercício 5");
+        System.out.println("Exercício 4");
         ex4();
+        System.out.println("Exercício 7");
+        ex7();
     }
 
     public static void ex1()
@@ -34,7 +38,7 @@ public class Main
         double a = 0;
         double b = 1;
         int m = 100000;
-        int n = 2;
+        int n = 3;
         double h = (b - a)/n;
         double result = 0;
 
@@ -48,7 +52,7 @@ public class Main
         double a = 0;
         double b = 1;
         int m = 100000;
-        int n = 2;
+        int n = 6;
         double h = (b - a)/n;
         double result = 0;
         
@@ -56,6 +60,17 @@ public class Main
             result = simpson(a, b, m, n, i)/h;
             System.out.println("w["+n+","+i+"] = " + result);
         }
+    }
+
+    public static void ex7(){
+        double a = 2;
+        double b = 6;
+        int m = 100000;
+        int n = 6;
+        double result = simpson_f(a, b, m);
+        System.out.println(result);
+
+        
     }
 
     public static double li(double x, double h, int i, double a, int n){
@@ -127,5 +142,40 @@ public class Main
         return integral;
 
     }
+
+    public static double simpson_f(double a, double b, int m){
+
+        double h = (b - a)/m;
+        double soma = 0;
+        double x = 0;
+        int c = 0;
+        int i = 0;
+
+        for(int j = 0; j < m+1; j++){
+            i = j;
+            if(i == 0 || i == m){
+                c = 1;
+            }
+            else if(i%2 == 1){
+                c = 4;
+            }
+            else if(i%2 == 0){
+                c = 2;
+            }
+
+            x = a + i*h;
+            soma = soma + c*f(x);
+        }
+
+        double integral = (h*soma)/3;
+        return integral;
+
+    }
+
+    public static double f(double x){
+        int a = 9;
+        return Math.pow(x, a);
+    }
+
 }
 
