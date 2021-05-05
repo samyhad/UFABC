@@ -6,12 +6,12 @@ public class Main
 {
     public static void main(String args[])
     {
-        System.out.println("Exercício 1");
-        ex1();
-        System.out.println("Exercício 2");
-        ex2();
-        System.out.println("Exercício 4");
-        ex4();
+        //System.out.println("Exercício 1");
+        //ex1();
+        //System.out.println("Exercício 2");
+        //ex2();
+        //System.out.println("Exercício 4");
+        //ex4();
         System.out.println("Exercício 7");
         ex7();
     }
@@ -63,15 +63,25 @@ public class Main
     }
 
     public static void ex7(){
-        double a = 2;
-        double b = 6;
-        int m = 100000;
-        int n = 6;
-        double result = simpson_f(a, b, m);
-        System.out.println(result);
+        double a = 0;
+        double b = 1;
+        int m = 6;
+        double ETm = 0;
+        double ESm = 0;
 
-        
+        while(m<=60)  {
+            
+            ETm = trapezio_f(a, b, m) - integral_f(a, b);
+            ESm = simpson_f(a, b, m) - integral_f(a, b);
+
+            System.out.println("Para m: "+ m);
+            System.out.println("    log(m): " + Math.log(m));
+            System.out.println("    log(ETm): " + Math.log(ETm));
+            System.out.println("    log(ESm): " + Math.log(ESm));
+            m = m + 6;
+        }
     }
+
 
     public static double li(double x, double h, int i, double a, int n){
 
@@ -143,6 +153,30 @@ public class Main
 
     }
 
+    public static double trapezio_f(double a, double b, int m){
+
+        double h = (b - a)/m;
+        double soma = 0;
+        double x = 0;
+        int c = 0;
+        int i = 0;
+
+        for (int j = 0; j < m + 1; j++){
+            i = j;
+            if(i == 0 || i == m){
+                c = 1;
+            }else{
+                c = 2;
+            }
+            x = a + i*h;
+            soma = soma + c*f(x);
+        }   
+    
+        double integral = soma*0.5*h;
+        return integral;     
+    }
+
+
     public static double simpson_f(double a, double b, int m){
 
         double h = (b - a)/m;
@@ -173,8 +207,15 @@ public class Main
     }
 
     public static double f(double x){
-        int a = 9;
-        return Math.pow(x, a);
+        int p = 9;
+        return Math.pow(x, p);
+    }
+
+    public static double integral_f(double a, double b){
+
+        double i_a = Math.pow(a, 10)/10;
+        double i_b = Math.pow(b, 10)/10;
+        return i_b - i_a;
     }
 
 }
