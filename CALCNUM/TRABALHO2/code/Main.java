@@ -14,6 +14,7 @@ public class Main
         //ex4();
         System.out.println("Exercício 7");
         ex7();
+        
     }
 
     public static void ex1()
@@ -73,7 +74,7 @@ public class Main
             
             ETm = trapezio_f(a, b, m) - integral_f(a, b);
             ESm = simpson_f(a, b, m) - integral_f(a, b);
-
+            
             System.out.println("Para m: "+ m);
             System.out.println("    log(m): " + Math.log(m));
             System.out.println("    log(ETm): " + Math.log(ETm));
@@ -82,6 +83,10 @@ public class Main
         }
     }
 
+    public static void ex8(){
+
+        double r = 0;
+    }
 
     public static double li(double x, double h, int i, double a, int n){
 
