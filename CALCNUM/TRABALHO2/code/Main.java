@@ -1,37 +1,13 @@
-import java.util.ArrayList;
-import java.util.function.Consumer;
-import java.util.function.Function;
-
 public class Main
 {
     public static void main(String args[])
     {
-        //System.out.println("Exercício 1");
-        //ex1();
-        //System.out.println("Exercício 2");
-        //ex2();
-        //System.out.println("Exercício 4");
-        //ex4();
-        System.out.println("Exercício 7");
-        ex7();
-        
-    }
-
-    public static void ex1()
-    {
-        int x = 2;
-        int n = 3;
-        double a = 0;
-        double b = 1;
-        double h = (b - a)/n;
-        double result = 0;
-
-        for (int index = 0; index < n+1; index++){
-
-            result = li(x, h, index, a, n);
-            System.out.println("l[" + index + "] = " + result);
-        }
-
+        System.out.println("Exercício 2");
+        ex2();
+        System.out.println("Exercício 4");
+        ex4();
+        System.out.println("Exercício 6");
+        ex6();
     }
 
     public static void ex2(){
@@ -63,29 +39,34 @@ public class Main
         }
     }
 
-    public static void ex7(){
+    public static void ex6(){
+
         double a = 0;
         double b = 1;
-        int m = 6;
-        double ETm = 0;
-        double ESm = 0;
+        int n = 6;
+        double h = (b-a)/n;
+        double[] x = new double[n+1];
+        double[][] A = new double[n+1][n+1];
+        double[] y = new double[n+1];
 
-        while(m<=60)  {
-            
-            ETm = trapezio_f(a, b, m) - integral_f(a, b);
-            ESm = simpson_f(a, b, m) - integral_f(a, b);
-            
-            System.out.println("Para m: "+ m);
-            System.out.println("    log(m): " + Math.log(m));
-            System.out.println("    log(ETm): " + Math.log(ETm));
-            System.out.println("    log(ESm): " + Math.log(ESm));
-            m = m + 6;
+        for(int i = 0; i < n+1; i++){
+            x[i] =  a + i*h;
         }
-    }
-
-    public static void ex8(){
-
-        double r = 0;
+        for(int i = 0; i < n+1; i++){
+            for(int j = 0; j < n+1; j++){
+                A[i][j] = (double) Math.pow(x[j], i);
+            }
+        }
+        for(int i = 0; i < n+1; i++){
+            y[i] = (double) n/(i+1);
+        }
+        double[] w = gauss(A, y, n+1);
+        for(int linha = 0; linha < n + 1; linha++)
+        {
+	    System.out.print("w["+ n +"," + linha + "] = " + w[linha]);
+            System.out.print("\n");
+        }
+        
     }
 
     public static double li(double x, double h, int i, double a, int n){
@@ -158,6 +139,79 @@ public class Main
 
     }
 
+    public static double[] gauss(double[][] A, double[] y, int n){
+        boolean troca = true;
+        double m = 0;
+        double temp;
+        double determinante = 1;
+        int sgn = 1;
+        int l = 0;
+        boolean erro = false;
+        for (int j = 0; j < n; j++){
+            troca = true;
+            l = j;
+            while(l < n){
+                if(A[l][j] == 0 && l != n - 1){
+                    l = l + 1;
+                    sgn = -sgn;
+
+                }else if(A[l][j] == 0 && l == n - 1){
+                    l = l + 1;
+                    sgn = -sgn;
+                    troca = false;
+
+                }else if(A[l][j] != 0){
+                    break;
+                }
+            }
+            if(troca == false && A[j][j] == 0){
+                erro = true;
+                break;
+            }
+            else if(troca == true && A[j][j] == 0){
+                for(int k = j; k < n; k++){
+                    temp = A[j][k];
+                    A[j][k] = A[l][k];
+                    A[l][k] = temp;
+                }
+                temp = y[j];
+                y[j] = y[l];
+                y[l] = temp;
+                
+            }
+            for (int i = j+1; i < n; i++){
+                m = - A[i][j]/A[j][j];
+                for(int k = j; k < n; k++){
+                    A[i][k] = A[i][k] + m*A[j][k];
+                }
+                y[i] = y[i] + m*y[j];
+            }
+        }
+        for(int i = 0; i < n; i++){
+            determinante = determinante*A[i][i];
+        }        
+        
+        if(erro == false){
+            determinante = determinante*sgn;
+        }
+        else{
+            determinante = 0;
+        }
+
+        double[] x = new double[n];
+        x[n-1] = y[n-1]/A[n-1][n-1];
+    
+        for(int i = n - 2; i >= 0; i--){ 
+            x[i] = y[i];
+            for (int k = i+1; k < n; k++){
+                x[i] = x[i] - A[i][k]*x[k];
+            }
+            x[i] = x[i]/A[i][i];
+        }
+
+        return x;
+    }
+    
     public static double trapezio_f(double a, double b, int m){
 
         double h = (b - a)/m;
@@ -180,7 +234,6 @@ public class Main
         double integral = soma*0.5*h;
         return integral;     
     }
-
 
     public static double simpson_f(double a, double b, int m){
 
